@@ -45,4 +45,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   particlePrefab: {fileID: 1754549473778664741, guid: a9e02a6b948905b47b000f4074b6c715,
     type: 3}
-  text: {fileID: 3146322503255015664, guid: f858d4967ba1d9647a241f4210223de3, type: 3}
+  levelRunnerPrefab: {fileID: 6465606665753481997, guid: 06ac584b8b1431b4dadf4caf27b3f2f6,
+    type: 3}
+  batchedLevelRunnerPrefab: {fileID: 246775261150663658, guid: 38e04f99fec93e045a4d122f1c483c10,
+    type: 3}
+  winMessage: {fileID: 7013605109403999701, guid: 48f5c7f1f77dc0a46b758fd2c79cf213,
+    type: 3}
+  loseMessage: {fileID: 3296710354904560283, guid: 6135dcacd0ae2804bbba73808e81f9bf,
+    type: 3}

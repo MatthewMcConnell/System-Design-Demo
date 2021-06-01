@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using ParticleCharacteristics;
 
 /* Representation of a single level where particles are randomly generated and spawned. */
-public class Level
+public class Level : MonoBehaviour
 {
     // starting scale of generated particles
     private const float PARTICLESCALE = 1.0f;
@@ -14,23 +12,11 @@ public class Level
     private const float DECREASINGRATE = 0.002f;
 
     // all colour and shape values available
-    Array colours = Enum.GetValues(typeof(Colour));
-    Array shapes = Enum.GetValues(typeof(Shape));
-
-    // seed number that the particle generation is based on
-    private int seed;
-
-    // particle prefab to build values from
-    private GameObject particlePrefab;
-
-    public Level(int seed, GameObject particlePrefab)
-    {
-        this.seed = seed;
-        this.particlePrefab = particlePrefab;
-    }
+    protected Array colours = Enum.GetValues(typeof(Colour));
+    protected Array shapes = Enum.GetValues(typeof(Shape));
 
     /* Sets up and runs the level using a seed to generate particles */
-    public int SetupAndStartLevel()
+    public virtual int SetupAndStartLevel(int seed, GameObject particlePrefab)
     {
         // calculating parameters for particle generation
         int numOfParticles = (int)Mathf.Pow(seed, 2);
@@ -43,7 +29,7 @@ public class Level
     }
 
     /* generates particles to be spawned */
-    private void GenerateParticles(GameObject particlePrefab, int numOfParticles, int maxNumOfShapes, int maxNumOfColours)
+    protected void GenerateParticles(GameObject particlePrefab, int numOfParticles, int maxNumOfShapes, int maxNumOfColours)
     {
         System.Random random = new System.Random();
 
@@ -53,7 +39,7 @@ public class Level
             Colour colour = (Colour)colours.GetValue(random.Next(maxNumOfColours));
             Shape shape = (Shape)shapes.GetValue(random.Next(maxNumOfShapes));
 
-            GameObject particle = MonoBehaviour.Instantiate(particlePrefab, GetRandomPos(), Quaternion.identity);
+            GameObject particle = Instantiate(particlePrefab, GetRandomPos(), Quaternion.identity);
             particle.GetComponent<ParticleController>().SetCharacteristics(shape, colour, PARTICLESCALE, DECREASINGRATE);
         }
     }

@@ -27,12 +27,21 @@ public class GameManagerController : MonoBehaviour
     // number of particles waiting to be emitted
     private static int unemittedParticles = 0;
 
-    // particle prefab to instantiate new levels
+    // prefabs to dynamically create game objects
     public GameObject particlePrefab;
+    public GameObject levelRunnerPrefab;
+    public GameObject batchedLevelRunnerPrefab;
+
+    // UI text to manipulate
+    public GameObject winMessage;
+    public GameObject loseMessage;
 
     // Start is called before the first frame update
     void Start()
     {
+        // loseMessage.GetComponent<Text>().enabled = true;
+        // loseMessage.enabled = true;
+        // loseMessage.gameObject.SetActive(true);
         // in a future iteration could load levels from a file e.g. domain language/yaml/json
         // instantiate initial level to be run
         StartLevel();
@@ -50,8 +59,11 @@ public class GameManagerController : MonoBehaviour
         unemittedParticles--;
         excessEnergy += Mathf.Abs(excess);
 
+        loseMessage.GetComponent<Text>().enabled = true;
+        // Debug.Log(loseMessage.gameObject);
+
         if (excessEnergy > MAXEXCESSENERGY) // game loss
-            Debug.Log("You Lost");
+            loseMessage.GetComponent<Text>().enabled = true;
         else if (unemittedParticles <= 0) // level success
             LevelEnd();
 
@@ -61,7 +73,6 @@ public class GameManagerController : MonoBehaviour
     /* Signals to the game manager that all particles have been successfully dealt with */
     void LevelEnd()
     {
-        Debug.Log("hello");
         if (++currentLevel <= NUMOFLEVELS)
         {
             // decay the energy
@@ -69,18 +80,20 @@ public class GameManagerController : MonoBehaviour
             // instantiate next level
             StartLevel();
         }
-        else
+        else if (!loseMessage.GetComponent<Text>().enabled)
         {
-            // otherwise game win!
-            // give final excess energy   
+            winMessage.GetComponent<Text>().enabled = true;
         }
 
     }
 
     void StartLevel()
     {
-        Level level = new Level(currentLevel, particlePrefab);
-        unemittedParticles = level.SetupAndStartLevel();
+        GameObject levelRunner = (currentLevel >= WAVEDLEVELS) ? Instantiate(batchedLevelRunnerPrefab) : Instantiate(levelRunnerPrefab);
+
+        // using polymorphism here for starting a level 
+        // (batched level script on object will put object in batches rather than all at once)
+        unemittedParticles = levelRunner.GetComponent<Level>().SetupAndStartLevel(currentLevel, particlePrefab);
     }
 
     // /* Gives the current excess energy of the nuclear reactor (game) */
