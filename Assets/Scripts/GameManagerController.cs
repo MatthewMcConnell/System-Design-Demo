@@ -30,7 +30,8 @@ public class GameManagerController : MonoBehaviour
     void Start()
     {
         // in a future iteration could load levels from a file e.g. domain language/yaml/json
-        // instantiate level 1
+        // instantiate initial level to be run
+        startLevel();
     }
 
     // Update is called once per frame
@@ -75,6 +76,6 @@ public class GameManagerController : MonoBehaviour
     void startLevel()
     {
         GameObject level = Instantiate(levelPrefab);
-        level.GetComponent<LevelController>();
+        level.GetComponent<LevelController>().startLevel(2, new Level());
     }
 }

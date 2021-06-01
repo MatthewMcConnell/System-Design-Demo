@@ -39,7 +39,7 @@ public class ParticleController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        SetCharacteristics(Shape.SQUARE, Colour.YELLOW, 1.0f, 0.002f);
+
     }
 
     // Update is called once per frame
