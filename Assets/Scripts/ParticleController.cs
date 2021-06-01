@@ -13,11 +13,11 @@ public class ParticleController : MonoBehaviour
     private float disappearRate;
 
     // scale threshold at which the particle will release excess energy it has
-    private const float scaleThreshold = 0.2f;
+    private const float SCALETHRESHOLD = 0.2f;
 
 
     /* Sets the characteristics of the particle changing its visual appearance and setting its behaviour. */
-    void SetCharacteristics(Shape shape, Colour colour, float scale, float disappearRate)
+    public void SetCharacteristics(Shape shape, Colour colour, float scale, float disappearRate)
     {
         ChangeAppearanceAndSetEnergy(shape, colour);
         gameObject.transform.localScale = new Vector3(scale, scale, scale);
@@ -48,7 +48,7 @@ public class ParticleController : MonoBehaviour
         // decrease size of game object
         gameObject.transform.localScale -= new Vector3(1.0f, 1.0f, 1.0f) * disappearRate;
 
-        if (gameObject.transform.localScale.x <= scaleThreshold)
+        if (gameObject.transform.localScale.x <= SCALETHRESHOLD)
             // if hits threshold then end of particle life cycle
             EmitParticleEnergy();
 
@@ -56,16 +56,14 @@ public class ParticleController : MonoBehaviour
 
     void OnMouseUp()
     {
-        if (Input.GetMouseButtonUp(0)) // Left mouse button (decrease particle energy)
-            energy--;
-        else if (Input.GetMouseButtonUp(1)) // right mouse button (confirmation of being done with the particle)
-            EmitParticleEnergy();
+        energy--;
+        Debug.Log("energy lost");
     }
 
     /* Emits excess energy and ends lifecycle of the particle. */
     private void EmitParticleEnergy()
     {
-        // send excess energy to game manager
+        // TODO send excess energy to game manager
         Destroy(gameObject);
     }
 }

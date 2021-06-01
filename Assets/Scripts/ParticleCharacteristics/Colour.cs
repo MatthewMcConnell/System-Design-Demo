@@ -1,12 +1,12 @@
 namespace ParticleCharacteristics
 {
     /* Represents the four colours available for particles and their corresponding points. */
-    enum Colour
+    public enum Colour
     {
         RED = 1,
         GREEN = 2,
         BLUE = 3,
-        YELLOW = 5
+        YELLOW = 4
     }
 
     /* Helper methods for getting more information associated with colours. */
