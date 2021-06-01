@@ -1,6 +1,6 @@
 namespace ParticleCharacteristics
 {
-    // can potentially use .toString for getting the name of sprite?
+    /* Represents the three shapes available for particles and their corresponding points. */
     enum Shape
     {
         CIRCLE = 3,
@@ -8,21 +8,21 @@ namespace ParticleCharacteristics
         TRIANGLE = 5
     }
 
-    static class ShapeUtil
-    {
-        static string GetSprite(Shape shape)
-        {
-            switch (shape)
-            {
-                case Shape.CIRCLE:
-                    return "circle Sprite";
-                case Shape.SQUARE:
-                    return "circle Sprite";
-                case Shape.TRIANGLE:
-                    return "circle Sprite";
-                default:
-                    return "not a shape";
-            }
-        }
-    }
+    // static class ShapeUtil
+    // {
+    //     static string GetSprite(Shape shape)
+    //     {
+    //         switch (shape)
+    //         {
+    //             case Shape.CIRCLE:
+    //                 return "circle Sprite";
+    //             case Shape.SQUARE:
+    //                 return "circle Sprite";
+    //             case Shape.TRIANGLE:
+    //                 return "circle Sprite";
+    //             default:
+    //                 return "not a shape";
+    //         }
+    //     }
+    // }
 }

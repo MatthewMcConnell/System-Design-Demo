@@ -10,7 +10,7 @@ public class ParticleController : MonoBehaviour
     Shape shape;
 
     // colour of the particle
-
+    Colour colour;
 
     // excess energy contained in the particle
     private int energy;
@@ -24,7 +24,11 @@ public class ParticleController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        shape = Shape.TRIANGLE;
+        Sprite sprite = Resources.Load<Sprite>(shape.ToString());
+        gameObject.GetComponent<SpriteRenderer>().sprite = sprite;
+        colour = Colour.BLUE;
+        gameObject.GetComponent<SpriteRenderer>().color = ColourUtil.GetSpriteColour(colour);
     }
 
     // Update is called once per frame
