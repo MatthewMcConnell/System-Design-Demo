@@ -18,20 +18,23 @@ public class GameManagerController : MonoBehaviour
     private const int WAVEDLEVELS = 3;
 
     // current level number
-    private int currentLevel = 1;
+    private static int currentLevel = 1;
 
     // current excess energy total
-    private int excessEnergy = 0;
+    private static int excessEnergy = 0;
 
-    // level prefab to instantiate new levels
-    public GameObject levelPrefab;
+    // number of particles waiting to be emitted
+    private static int unemittedParticles = 0;
+
+    // particle prefab to instantiate new levels
+    public GameObject particlePrefab;
 
     // Start is called before the first frame update
     void Start()
     {
         // in a future iteration could load levels from a file e.g. domain language/yaml/json
         // instantiate initial level to be run
-        startLevel();
+        StartLevel();
     }
 
     // Update is called once per frame
@@ -41,29 +44,30 @@ public class GameManagerController : MonoBehaviour
     }
 
     /* Adds the excess energy to the total and provides feedback to the player. */
-    void addExcessEnergy(int excess)
+    public void AddExcessEnergy(int excess)
     {
+        unemittedParticles--;
         excessEnergy += Mathf.Abs(excess);
+        Debug.Log(unemittedParticles);
 
-        if (excessEnergy > MAXEXCESSENERGY)
-            // game lose!
+        if (excessEnergy > MAXEXCESSENERGY) // game loss
             Debug.Log("You Lost");
-        else if (excess > 0)
-            // fission!
-            Debug.Log("fission");
-        else if (excess < 0)
-            // fusion!
-            Debug.Log("fusion");
+        else if (unemittedParticles <= 0) // level success
+            LevelEnd();
+
+
     }
 
     /* Signals to the game manager that all particles have been successfully dealt with */
-    void signalLevelEnd()
+    void LevelEnd()
     {
+        Debug.Log("hello");
         if (++currentLevel <= NUMOFLEVELS)
         {
             // decay the energy
             excessEnergy = (int)(excessEnergy * ENERGYDECAYRATE);
             // instantiate next level
+            StartLevel();
         }
         else
         {
@@ -73,9 +77,9 @@ public class GameManagerController : MonoBehaviour
 
     }
 
-    void startLevel()
+    void StartLevel()
     {
-        GameObject level = Instantiate(levelPrefab);
-        level.GetComponent<LevelController>().startLevel(2, new Level());
+        Level level = new Level(currentLevel, particlePrefab);
+        unemittedParticles = level.SetupAndStartLevel();
     }
 }

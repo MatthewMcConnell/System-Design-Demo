@@ -15,6 +15,9 @@ public class ParticleController : MonoBehaviour
     // scale threshold at which the particle will release excess energy it has
     private const float SCALETHRESHOLD = 0.2f;
 
+    // reference to the game manager object so it can communicate with it
+    public GameObject gameManager;
+
 
     /* Sets the characteristics of the particle changing its visual appearance and setting its behaviour. */
     public void SetCharacteristics(Shape shape, Colour colour, float scale, float disappearRate)
@@ -57,14 +60,12 @@ public class ParticleController : MonoBehaviour
     void OnMouseUp()
     {
         energy--;
-        Debug.Log("energy lost");
     }
 
     /* Emits excess energy and ends lifecycle of the particle. */
     private void EmitParticleEnergy()
     {
-        // TODO send excess energy to game manager
-        // TODO tell level manager that we have been emitted
+        gameManager.GetComponent<GameManagerController>().AddExcessEnergy(energy);
         Destroy(gameObject);
     }
 }
