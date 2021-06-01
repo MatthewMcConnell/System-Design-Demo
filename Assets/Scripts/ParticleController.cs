@@ -64,6 +64,7 @@ public class ParticleController : MonoBehaviour
     private void EmitParticleEnergy()
     {
         // TODO send excess energy to game manager
+        // TODO tell level manager that we have been emitted
         Destroy(gameObject);
     }
 }

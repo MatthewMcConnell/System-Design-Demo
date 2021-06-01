@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/* Controls the Highest-level view of the game, starting up levels and providing UI feedback to the user. */
 public class GameManagerController : MonoBehaviour
 {
     // the energy decay rate of excess energy between levels
@@ -21,6 +22,9 @@ public class GameManagerController : MonoBehaviour
 
     // current excess energy total
     private int excessEnergy = 0;
+
+    // level prefab to instantiate new levels
+    public GameObject levelPrefab;
 
     // Start is called before the first frame update
     void Start()
@@ -70,6 +74,7 @@ public class GameManagerController : MonoBehaviour
 
     void startLevel()
     {
-        
+        GameObject level = Instantiate(levelPrefab);
+        level.GetComponent<LevelController>();
     }
 }

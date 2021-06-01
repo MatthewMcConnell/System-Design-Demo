@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using ParticleCharacteristics;
 
+/* Representation of a single level where particles are randomly generated and spawned. */
 public class LevelController : MonoBehaviour
 {
     // starting scale of generated particles
@@ -31,14 +32,20 @@ public class LevelController : MonoBehaviour
 
     }
 
-    /* Sets up the level using a seed to generate particles */
-    void SetupParticles(int seed)
+    /* Sets up and runs the level using a seed to generate particles */
+    public void SetupAndStartLevel(int seed)
     {
         // calculating parameters for particle generation
         int numOfParticles = (int)Mathf.Pow(seed, 2);
         int maxNumOfShapes = Mathf.Min(seed, shapes.Length);
         int maxNumOfColours = Mathf.Min(seed, colours.Length);
 
+        generateParticles(numOfParticles, maxNumOfShapes, maxNumOfColours);
+    }
+
+    /* generates particles to be spawned */
+    private void generateParticles(int numOfParticles, int maxNumOfShapes, int maxNumOfColours)
+    {
         System.Random random = new System.Random();
 
         // spawning randomised particles
