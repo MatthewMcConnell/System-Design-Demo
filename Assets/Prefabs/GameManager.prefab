@@ -45,3 +45,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   particlePrefab: {fileID: 1754549473778664741, guid: a9e02a6b948905b47b000f4074b6c715,
     type: 3}
+  text: {fileID: 3146322503255015664, guid: f858d4967ba1d9647a241f4210223de3, type: 3}

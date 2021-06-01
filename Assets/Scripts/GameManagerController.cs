@@ -1,12 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 /* Controls the Highest-level view of the game, starting up levels and providing UI feedback to the user. */
 public class GameManagerController : MonoBehaviour
 {
     // the energy decay rate of excess energy between levels
-    private const float ENERGYDECAYRATE = 0.1f;
+    private const float ENERGYDECAYRATE = 0.5f;
 
     // max excess energy allowed
     private const int MAXEXCESSENERGY = 50;
@@ -48,7 +49,6 @@ public class GameManagerController : MonoBehaviour
     {
         unemittedParticles--;
         excessEnergy += Mathf.Abs(excess);
-        Debug.Log(unemittedParticles);
 
         if (excessEnergy > MAXEXCESSENERGY) // game loss
             Debug.Log("You Lost");
@@ -81,5 +81,11 @@ public class GameManagerController : MonoBehaviour
     {
         Level level = new Level(currentLevel, particlePrefab);
         unemittedParticles = level.SetupAndStartLevel();
+    }
+
+    // /* Gives the current excess energy of the nuclear reactor (game) */
+    public static string GetExcessEnergy()
+    {
+        return excessEnergy.ToString();
     }
 }
