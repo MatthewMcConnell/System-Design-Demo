@@ -32,16 +32,10 @@ public class GameManagerController : MonoBehaviour
     public GameObject levelRunnerPrefab;
     public GameObject batchedLevelRunnerPrefab;
 
-    // UI text to manipulate
-    public GameObject winMessage;
-    public GameObject loseMessage;
-
     // Start is called before the first frame update
     void Start()
     {
-        // loseMessage.GetComponent<Text>().enabled = true;
-        // loseMessage.enabled = true;
-        // loseMessage.gameObject.SetActive(true);
+        // loseMessage.color = Color.black;
         // in a future iteration could load levels from a file e.g. domain language/yaml/json
         // instantiate initial level to be run
         StartLevel();
@@ -59,11 +53,8 @@ public class GameManagerController : MonoBehaviour
         unemittedParticles--;
         excessEnergy += Mathf.Abs(excess);
 
-        loseMessage.GetComponent<Text>().enabled = true;
-        // Debug.Log(loseMessage.gameObject);
-
         if (excessEnergy > MAXEXCESSENERGY) // game loss
-            loseMessage.GetComponent<Text>().enabled = true;
+            GameObject.Find("lose").GetComponent<Text>().color = Color.black;
         else if (unemittedParticles <= 0) // level success
             LevelEnd();
 
@@ -80,11 +71,10 @@ public class GameManagerController : MonoBehaviour
             // instantiate next level
             StartLevel();
         }
-        else if (!loseMessage.GetComponent<Text>().enabled)
+        else if (GameObject.Find("lose").GetComponent<Text>().color != Color.black)
         {
-            winMessage.GetComponent<Text>().enabled = true;
+            GameObject.Find("win").GetComponent<Text>().color = Color.black;
         }
-
     }
 
     void StartLevel()
