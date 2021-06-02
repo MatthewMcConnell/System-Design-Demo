@@ -28,7 +28,7 @@ public class Level : MonoBehaviour
         return numOfParticles;
     }
 
-    /* generates particles to be spawned */
+    /* Generates particles to be spawned */
     protected void GenerateParticles(GameObject particlePrefab, int numOfParticles, int maxNumOfShapes, int maxNumOfColours)
     {
         System.Random random = new System.Random();
