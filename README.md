@@ -12,10 +12,10 @@ Shapes:
 - Circle = 3
 
 Colours:
-- RED = 1
-- GREEN = 2
-- BLUE = 3
-- YELLOW = 4
+- Red = 1
+- Green = 2
+- Blue = 3
+- Yellow = 4
 
 Be careful when clicking though, as clicking a particle too much will give it negative energy!
 
@@ -29,4 +29,4 @@ There are other things like enums (e.g. particle characteristics) and small scri
 
 ## Where can you play the game?
 
-At TODO...
+You can play the game on [itch.io](https://musical-spearman.itch.io/nuclear-particles)

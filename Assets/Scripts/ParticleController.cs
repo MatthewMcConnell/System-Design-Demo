@@ -3,23 +3,39 @@ using System.Collections.Generic;
 using UnityEngine;
 using ParticleCharacteristics;
 
-/* Contains the characteristics of and controls behaviour of the nuclear particles in the game. */
+/// <summary>
+///  Contains the characteristics of and controls behaviour of the nuclear particles in the game.
+/// </summary>
 public class ParticleController : MonoBehaviour
 {
-    // excess energy contained in the particle
+    /// <summary>
+    ///  The excess energy contained in the particle.
+    /// </summary>
     private int energy;
 
-    // disappearing rate of the particle
+    /// <summary>
+    /// The disappearing rate of the particle.
+    /// </summary>
     private float disappearRate;
 
-    // scale threshold at which the particle will release excess energy it has
+    /// <summary>
+    /// The scale threshold at which the particle will release excess energy it has.
+    /// </summary>
     private const float SCALETHRESHOLD = 0.2f;
 
-    // reference to the game manager object so it can communicate with it
+    /// <summary>
+    /// Reference to the game manager object so it can communicate with it.
+    /// </summary>
     public GameObject gameManager;
 
 
-    /* Sets the characteristics of the particle changing its visual appearance and setting its behaviour. */
+    /// <summary>
+    /// Sets the characteristics of the particle changing its visual appearance and setting its behaviour.
+    /// </summary>
+    /// <param name="shape">Shape the particle should have.</param>
+    /// <param name="colour">Colour the particle should have.</param>
+    /// <param name="scale">The scale size the particle should be.</param>
+    /// <param name="disappearRate">Rate that the particle should become smaller and disappear.</param>
     public void SetCharacteristics(Shape shape, Colour colour, float scale, float disappearRate)
     {
         ChangeAppearanceAndSetEnergy(shape, colour);
@@ -27,7 +43,11 @@ public class ParticleController : MonoBehaviour
         this.disappearRate = disappearRate;
     }
 
-    /* Sets appearance and excess energy of the particle based on the shape and colour */
+    /// <summary>
+    /// Sets appearance and excess energy of the particle based on the shape and colour.
+    /// </summary>
+    /// <param name="shape">Shape the particle should have.</param>
+    /// <param name="colour">Colour the particle should have.</param>
     private void ChangeAppearanceAndSetEnergy(Shape shape, Colour colour)
     {
         // calculating and setting the excess energy the particle has
@@ -39,13 +59,9 @@ public class ParticleController : MonoBehaviour
         spriteRenderer.color = ColourUtil.GetSpriteColour(colour);
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
+    /// <summary>
+    /// Called once every frame and decreases the particle size until it hits a threshold.
+    /// </summary>
     void Update()
     {
         // decrease size of game object over time
@@ -57,13 +73,17 @@ public class ParticleController : MonoBehaviour
 
     }
 
-    /* On click the particle excess energy is decreased */
+    /// <summary>
+    /// On click the particle excess energy is decreased.
+    /// </summary>
     void OnMouseUp()
     {
         energy--;
     }
 
-    /* Emits excess energy and ends lifecycle of the particle. */
+    /// <summary>
+    /// Emits excess energy and ends lifecycle of the particle.
+    /// </summary>
     private void EmitParticleEnergy()
     {
         gameManager.GetComponent<GameManagerController>().AddExcessEnergy(energy);

@@ -3,36 +3,64 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-/* Controls the Highest-level view of the game, starting up levels and determining if the game is won or lost. */
+/// <summary>
+/// Controls the Highest-level view of the game, starting up levels and determining if the game is won or lost.
+/// </summary>
 public class GameManagerController : MonoBehaviour
 {
-    // the energy decay rate of excess energy between levels
+    /// <summary>
+    /// The energy decay rate of excess energy between levels.
+    /// </summary>
     private const float ENERGYDECAYRATE = 0.5f;
 
-    // max excess energy allowed
+    /// <summary>
+    /// Max excess energy allowed.
+    /// </summary>
     private const int MAXEXCESSENERGY = 50;
 
-    // number of levels we will have in the game
+    /// <summary>
+    /// Number of levels we will have in the game.
+    /// </summary>
     private const int NUMOFLEVELS = 5;
 
-    // at what level number we start to have levels with waves of particles
+    /// <summary>
+    /// The level number we start to have levels with waves of particles.
+    /// </summary>
     private const int WAVEDLEVELS = 3;
 
-    // current level number
+    /// <summary>
+    /// The current level number.
+    /// </summary>
     private static int currentLevel = 1;
 
-    // current excess energy total
+    /// <summary>
+    /// The current excess energy total.
+    /// </summary>
     private static int excessEnergy = 0;
 
-    // number of particles waiting to be emitted
+    /// <summary>
+    /// The number of particles waiting to be emitted.
+    /// </summary>
     private static int unemittedParticles = 0;
 
-    // prefabs to dynamically create game objects
+    /// <summary>
+    /// Particle object to instantiate.
+    /// </summary>
     public GameObject particlePrefab;
+
+    /// <summary>
+    /// Base level object to instantiate.
+    /// </summary>
     public GameObject levelRunnerPrefab;
+
+    /// <summary>
+    /// Batched level object to instantiate.
+    /// </summary>
     public GameObject batchedLevelRunnerPrefab;
 
-    // Start is called before the first frame update
+    /// <summary>
+    /// Called on object creation and starts the initial level.
+    /// </summary>
     void Start()
     {
         // in a future iteration could load levels from a file e.g. domain language/yaml/json
@@ -40,13 +68,10 @@ public class GameManagerController : MonoBehaviour
         StartLevel();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-    /* Adds the excess energy to the total and provides feedback to the player. */
+    /// <summary>
+    /// Adds the excess energy to the total and provides feedback to the player.
+    /// </summary>
+    /// <param name="excess">The amount of excess energy to be added. Can be negative.</param>
     public void AddExcessEnergy(int excess)
     {
         unemittedParticles--;
@@ -56,11 +81,11 @@ public class GameManagerController : MonoBehaviour
             GameObject.Find("lose").GetComponent<Text>().color = Color.black;
         else if (unemittedParticles <= 0) // level success
             LevelEnd();
-
-
     }
 
-    /* Signals to the game manager that all particles have been successfully dealt with */
+    /// <summary>
+    /// Signals to the game manager that all particles have been successfully dealt with.
+    /// </summary>
     void LevelEnd()
     {
         if (++currentLevel <= NUMOFLEVELS)
@@ -74,6 +99,9 @@ public class GameManagerController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Starts a level based on the level number to be run.
+    /// </summary>
     void StartLevel()
     {
         GameObject levelRunner = (currentLevel >= WAVEDLEVELS) ? Instantiate(batchedLevelRunnerPrefab) : Instantiate(levelRunnerPrefab);
@@ -82,7 +110,10 @@ public class GameManagerController : MonoBehaviour
         unemittedParticles = levelRunner.GetComponent<Level>().SetupAndStartLevel(currentLevel, particlePrefab);
     }
 
-    // /* Gives the current excess energy of the nuclear reactor (game) */
+    /// <summary>
+    /// Gives the current excess energy of the nuclear reactor (game).
+    /// </summary>
+    /// <returns>The current excess energy as a string.</returns>
     public static string GetExcessEnergy()
     {
         return excessEnergy.ToString();

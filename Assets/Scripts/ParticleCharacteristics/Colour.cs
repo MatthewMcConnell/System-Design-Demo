@@ -1,6 +1,8 @@
 namespace ParticleCharacteristics
 {
-    /* Represents the four colours available for particles and their corresponding points. */
+    /// <summary>
+    /// Represents the four colours available for particles and their corresponding points.
+    /// </summary>
     public enum Colour
     {
         RED = 1,
@@ -9,10 +11,16 @@ namespace ParticleCharacteristics
         YELLOW = 4
     }
 
-    /* Helper methods for getting more information associated with colours. */
+    /// <summary>
+    /// Helper methods for getting more information associated with colours.
+    /// </summary>
     static class ColourUtil
     {
-        /* Returns the Unity Sprite Color corresponding the the Colour Enum. */
+        /// <summary>
+        /// Returns the Unity Sprite Color corresponding the the Colour Enum.
+        /// </summary>
+        /// <param name="colour">Colour enum to find the unity colour for.</param>
+        /// <returns></returns>
         public static UnityEngine.Color GetSpriteColour(Colour colour)
         {
             switch (colour)
