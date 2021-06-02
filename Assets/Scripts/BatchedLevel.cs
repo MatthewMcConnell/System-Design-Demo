@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-/* Represents a slightly more advanced level where the particle spawning is divided and batched up. */
+/* Represents a slightly more advanced level where the particle spawning is divided into waves. */
 public class BatchedLevel : Level
 {
     // constant for how long to wait between batches

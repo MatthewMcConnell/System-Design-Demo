@@ -44,7 +44,7 @@ public class Level : MonoBehaviour
         }
     }
 
-    /* generates a random spawn position on the screen */
+    /* Generates a random spawn position on the screen */
     private Vector3 GetRandomPos()
     {
         float spawnY = UnityEngine.Random.Range

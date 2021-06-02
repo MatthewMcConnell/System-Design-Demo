@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/* Updates the excess energy emitted score. */
 public class Score : MonoBehaviour
 {
     public Text text;

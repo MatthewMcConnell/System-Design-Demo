@@ -12,6 +12,7 @@ namespace ParticleCharacteristics
     /* Helper methods for getting more information associated with colours. */
     static class ColourUtil
     {
+        /* Returns the Unity Sprite Color corresponding the the Colour Enum. */
         public static UnityEngine.Color GetSpriteColour(Colour colour)
         {
             switch (colour)

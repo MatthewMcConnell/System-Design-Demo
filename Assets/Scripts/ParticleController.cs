@@ -48,7 +48,7 @@ public class ParticleController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // decrease size of game object
+        // decrease size of game object over time
         gameObject.transform.localScale -= new Vector3(1.0f, 1.0f, 1.0f) * disappearRate;
 
         if (gameObject.transform.localScale.x <= SCALETHRESHOLD)
@@ -57,6 +57,7 @@ public class ParticleController : MonoBehaviour
 
     }
 
+    /* On click the particle excess energy is decreased */
     void OnMouseUp()
     {
         energy--;
